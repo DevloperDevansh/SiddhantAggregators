@@ -464,6 +464,13 @@ header .logo img {
 .contact-form input[type="submit"]:hover {
     background: var(--headerclr);
 }
+#msg{
+    font-size: 1rem;
+    color: rgb(10, 154, 10);
+    margin-top: -10px;
+    display: block;
+    text-align: center;
+}
 
 .footer-bottom{
     text-align: center;
