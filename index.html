@@ -291,25 +291,39 @@
     
     <!-- <i class="fas fa-quote-left"></i> -->
 
-    <script>
+   <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzjTX2kz4_vzaH1YQ7GfRckoti3iBhL6LS2RHYVA26gF0C76brg4FG0ucDoN4XlUGbZdg/exec'
         const form = document.forms['submit-to-google-sheet']
         const msg = document.getElementById("msg")
 
         form.addEventListener('submit', e => {
-            e.preventDefault()
+            e.preventDefault();
             fetch(scriptURL, { method: 'POST', body: new FormData(form) })
                 .then(response => {
-                    msg.innerHTML = "Message sent successfully"
-                    setTimeout(() => {
-                        msg.innerHTML = ""
-                    }, 5000)
-                    form.reset()
+                    if (response.ok) {
+                        // Show success message using SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Your message has been sent successfully!',
+                            showConfirmButton: false,
+                            timer: 2000 // Adjust the time to show the alert
+                        });
+
+                        // Optionally, reset form after submission
+                        form.reset();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
                 })
-                .catch(error => console.error('Error!', error.message))
-        })
+                .catch(error => {
+                    console.error('Error!', error);
+                    // Handle error here if needed
+                });
+        });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 
 </body>
